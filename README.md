@@ -4,4 +4,4 @@ This is a very quick tutorial following of Web Dev Simplified's Youtube tutorial
 
 The link for the tutorial can be found <a style=color:#00ae8cff href="https://www.youtube.com/watch?v=Ud5xKCYQTjM">here.</a>
 
-_This version was adapted to be used with HapiJS. This is meant to eventually translate to a basic authentication page using BCrypt and HapiJS, I have yet to explore the possibilities with Joi, but it is something that I will look into once the basics are set up._
+_This version was adapted to be used with HapiJS (webdevsimplified's version uses ExpressJS). This is meant to eventually translate to a basic authentication page using BCrypt and HapiJS, I have yet to explore the possibilities with Joi, but it is something that I will look into once the basics are set up._
