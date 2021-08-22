@@ -2,6 +2,7 @@
 
 const Hapi = require("@hapi/hapi")
 const bcrypt = require('bcrypt')
+const pool = require('./maria_database_connection/database.js')
 
 const init = async() => {
 
@@ -14,10 +15,20 @@ const init = async() => {
 
     server.route({
         method: 'GET',
-        path: '/users',
+        path: '/',
         handler: async(req, h) => {
             return users
         }
+    })
+
+    server.route({
+        method: 'GET',
+        path: '/users',
+        handler: async() => {
+            const sqlQuery = 'SELECT * FROM users;'
+            const result = await pool.query(sqlQuery)
+            return result
+        }               
     })
 
     server.route({
