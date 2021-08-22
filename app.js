@@ -40,8 +40,11 @@ const init = async() => {
                     name: req.payload.name,
                     password: hashedPassword
                 }
-                users.push(user)
-                return "Created User Profile " + hashedPassword
+                // users.push(user)
+                // return "Created User Profile " + hashedPassword
+                const sqlQuery = 'INSERT INTO users (username, password) VALUES (?, ?)'
+                const result = await pool.query(sqlQuery, [user.name, hashedPassword])
+                return result
             
         }         
     })
