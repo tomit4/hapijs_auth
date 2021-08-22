@@ -30,7 +30,7 @@ const init = async() => {
                     password: hashedPassword
                 }
                 users.push(user)
-                return "Created User Profile"
+                return "Created User Profile " + hashedPassword
             
         }         
     })
