@@ -7,9 +7,18 @@
     <title>404.html</title>
 </head>
 <body>
-    <h1>You're a Little Lost, aren't you?</h1>
-    <h2>ERROR 404</h2>
+    <h1>Are you lost?</h1>
+    <h1>ERROR 404</h1>
+    <h1>Hang Tight! Redirecting...</h1>
 </body>
+<script>
+    // simple script that redicrectts back to home page after 2 seconds
+    window.onload = function () {
+        setTimeout(function(){
+         document.location.replace("/");
+        },2000)
+    }
+</script>
 <style>
 body{
     width: 100%;
