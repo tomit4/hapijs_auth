@@ -84,17 +84,16 @@ const init = async () => {
                 method: "POST",
                 path: "/users",
                 handler: async (req, h) => {
-                    const hashedPassword = await bcrypt.hash(req.payload.password, 10);
                     const user = {
-                        name: req.payload.username,
+                        username: req.payload.username,
                         password: hashedPassword,
                     };
+                    const hashedPassword = await bcrypt.hash(req.payload.password, 10)
                     const sqlQuery = "INSERT INTO users (username, password) VALUES (?, ?);";
                     const result = await pool.query(sqlQuery, [user.name, hashedPassword]);
                     return result;
                 }
-            },
-            {
+            }, {
                 method: "POST",
                 path: "/",
                 handler: async (req, h) => {
@@ -104,11 +103,23 @@ const init = async () => {
                     const sqlQuery = "SELECT * FROM users";
                     const result = await pool.query(sqlQuery);
 
-                    for (let i = 0; i < result.length; i++) { // works, finds the user based off of username... now we have to compare bcrypt passwords...
+                    // better than for loop below... no it isn't, it assigns the name to the first item found, and then just returns that first item with the adjusted password, never mind...
+                    // const user = result.find((user) => (user.username = req.payload.username))
+                    // if (user) {
+                    //     return user
+                    // } else {
+                    //     return "No Dice"
+                    // }
+
+
+                    // works, but throws a server 500 error if not found, no way thought of to redirect, continue statement necessary,
+                    // otherwise any return statement breaks the loop after the first iteration through the users array
+
+                    for (let i = 0; i < result.length; i++) {
                         if (req.payload.username === result[i].username) {
                             return result[i]
                         } else {
-                            return "No Dice"
+                            continue
                         }
                     }
 
