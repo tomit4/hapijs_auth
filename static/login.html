@@ -34,16 +34,35 @@
             cursor: pointer;
             font-weight: bold;
             color: #ffffff;
-        } 
+        }
+        button {
+            width: 300px;
+            margin: 15px auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background-color: #535b63;
+            color:#ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            padding: 17px 0 17px 0;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="login-form">
-        <h1>Create User Form</h1>
-        <form action="/create_user" method="POST">
+        <h1>Login</h1>
+        <form action="/" method="POST">
             <input type="text" name="username" placeholder="Username">
             <input type="password" name="password" placeholder="Password">
-            <input type="submit" value="Create User">
+            <input type="submit" value="Submit">
+        </form>
+        <form action="/create_user" method="GET">
+            <button onclick="">Create User</button>
         </form>
     </div>    
 </body>
