@@ -111,16 +111,19 @@ const init = async () => {
                     //     return "No Dice"
                     // }
 
-
-                    // works, but throws a server 500 error if not found, no way thought of to redirect, continue statement necessary,
-                    // otherwise any return statement breaks the loop after the first iteration through the users array
-
+                    // WORKS!, finds the user if exists, but otherwise redirects
+                    let finalResult = undefined
                     for (let i = 0; i < result.length; i++) {
                         if (req.payload.username === result[i].username) {
-                            return result[i]
+                            finalResult = result[i]
                         } else {
                             continue
                         }
+                    }
+                    if (finalResult !== undefined) {
+                        return finalResult
+                    } else {
+                        return "No Dice"
                     }
 
                     // if (await bcrypt.compare(user.password, req.payload.password)) {
