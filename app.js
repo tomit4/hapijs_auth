@@ -50,7 +50,7 @@ const init = async () => {
                             password: hashedPassword,
                         };
                         const sqlQuery = "INSERT INTO users (username, password) VALUES (?, ?)";
-                        const result = await pool.query(sqlQuery, [user.username, hashedPassword]);
+                        await pool.query(sqlQuery, [user.username, hashedPassword]);
                         return h.redirect("/success")
                     } else {
                         return h.redirect("/")
@@ -103,34 +103,24 @@ const init = async () => {
                     const sqlQuery = "SELECT * FROM users";
                     const result = await pool.query(sqlQuery);
 
-                    // better than for loop below... no it isn't, it assigns the name to the first item found, and then just returns that first item with the adjusted password, never mind...
-                    // const user = result.find((user) => (user.username = req.payload.username))
-                    // if (user) {
-                    //     return user
-                    // } else {
-                    //     return "No Dice"
-                    // }
-
-                    // WORKS!, finds the user if exists, but otherwise redirects
+                    // Finds the user by name, if found, compares password hash in database to user entered password, if correct, returns succesful login, otherwise returns incorrect
                     let finalResult = undefined
                     for (let i = 0; i < result.length; i++) {
                         if (req.payload.username === result[i].username) {
-                            finalResult = result[i]
+                            let correctPassword = await bcrypt.compare(req.payload.password, result[i].password)
+                            if (correctPassword) {
+                                finalResult = result[i]
+                            }
                         } else {
                             continue
                         }
                     }
                     if (finalResult !== undefined) {
-                        return finalResult
+                        return finalResult // Successful login
                     } else {
-                        return "No Dice"
+                        return "No Dice" // unsuccessful login
                     }
 
-                    // if (await bcrypt.compare(user.password, req.payload.password)) {
-                    //     return "Success"
-                    // } else {
-                    //     return "Not Allowed"
-                    // }
 
 
                     //     const user = users.find((user) => (user.name = req.payload.name));
