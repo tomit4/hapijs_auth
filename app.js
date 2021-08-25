@@ -98,8 +98,6 @@ const init = async () => {
                 path: "/",
                 handler: async (req, h) => {
 
-                    // we should reference req.payload.username req.payload.password (input)
-
                     const sqlQuery = "SELECT * FROM users";
                     const result = await pool.query(sqlQuery);
 
@@ -121,22 +119,6 @@ const init = async () => {
                         return "No Dice" // unsuccessful login
                     }
 
-
-
-                    //     const user = users.find((user) => (user.name = req.payload.name));
-
-                    //     if (user == null) {
-                    //         return "Cannot Find User";
-                    //     }
-                    //     try {
-                    //         if (await bcrypt.compare(req.payload.password, user.password)) {
-                    //             return "Success";
-                    //         } else {
-                    //             return "Not Allowed";
-                    //         }
-                    //     } catch {
-                    //         return "Status 500 Error";
-                    //     }
                 }
             }
         ])
