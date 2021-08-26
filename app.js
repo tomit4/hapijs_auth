@@ -3,6 +3,7 @@ const path = require("path");
 const Hapi = require("@hapi/hapi");
 const Inert = require("@hapi/inert");
 const bcrypt = require("bcrypt");
+// const jwt = require("jsonwebtoken")
 const pool = require("./maria_database_connection/database.js");
 
 const init = async () => {
@@ -104,8 +105,8 @@ const init = async () => {
                     // Finds the user by name, if found, compares password hash in database to user entered password, if correct, returns succesful login, otherwise returns incorrect
                     let finalResult = undefined
                     for (let i = 0; i < result.length; i++) {
-                        if (req.payload.username === result[i].username) {
-                            let correctPassword = await bcrypt.compare(req.payload.password, result[i].password)
+                        if (req.payload.username === result[i].username) { // if the user passes use a username, check to see if that username exists within the database...
+                            let correctPassword = await bcrypt.compare(req.payload.password, result[i].password) // if it doesn, then compare the hashed password to the user's entered password...
                             if (correctPassword) {
                                 finalResult = result[i]
                             }
@@ -114,6 +115,14 @@ const init = async () => {
                         }
                     }
                     if (finalResult !== undefined) {
+                        // here is where we might want to generate two tokens, a JWT Authentication Token and also a JWT Refresh Token for our user session.
+                        // generate random string tokens using node and the following command:
+                        // generated using nodeJS by require('crypto').randomBytes(64).toString('hex')
+                        // function generateAccessToken(user) {
+                            //     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { e
+                        //         expiresIn: '1m'
+                        //     })
+                        // }
                         return finalResult // Successful login
                     } else {
                         return "No Dice" // unsuccessful login
