@@ -119,7 +119,7 @@ const init = async () => {
                         // generate random string tokens using node and the following command:
                         // generated using nodeJS by require('crypto').randomBytes(64).toString('hex')
                         // function generateAccessToken(user) {
-                            //     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { e
+                            //     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
                         //         expiresIn: '1m'
                         //     })
                         // }
